@@ -19,7 +19,7 @@ export default function WishlistPage() {
   const [feedback, setFeedback] = useState<Record<number, boolean>>({});
 
   const handleMoveToCart = (product: WishlistItem) => {
-    addToCart(product);
+    addToCart({ ...product, quantity: 1 });
     removeFromWishlist(product.id);
     setFeedback({ ...feedback, [product.id]: true });
     setTimeout(() => {

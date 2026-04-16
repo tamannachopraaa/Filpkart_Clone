@@ -49,7 +49,12 @@ export default function ProductDetail({ params }: { params: Promise<{ id: string
       if (inWishlist) {
         removeFromWishlist(product.id);
       } else {
-        addToWishlist(product);
+        addToWishlist({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image_url: product.image_url
+        });
       }
       setInWishlist(!inWishlist);
     }
@@ -207,7 +212,7 @@ export default function ProductDetail({ params }: { params: Promise<{ id: string
           {/* Action Buttons */}
           <div className="flex gap-3">
             <button 
-              onClick={() => addToCart(product)}
+              onClick={() => addToCart({ ...product, quantity: 1 })}
               className="flex-1 bg-[#ff9f00] hover:bg-[#e68900] active:bg-[#d67800] text-white py-3 px-4 font-bold rounded-sm shadow-lg hover:shadow-xl transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2 text-sm md:text-base tracking-wide"
             >
               <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
