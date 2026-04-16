@@ -101,4 +101,4 @@ flipkart-clone/
 | **Orders** | id, total_amount, shipping_address, created_at |
 | **Order Items** | id, order_id, product_id, quantity, price |
 
-[GitHub](https://github.com/tamannachopraaa/Filpkart_Clone) | [Live Demo](#)
+
