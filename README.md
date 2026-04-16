@@ -3,7 +3,6 @@
 ## 🌐 Live Website
 **[https://flipkart-frontend-6qax.onrender.com/](https://flipkart-frontend-6qax.onrender.com/)**
 
-[GitHub](https://github.com/tamannachopraaa/Filpkart_Clone)
 
 A full-stack e-commerce app with product browsing, shopping cart, checkout, and order management.
 
