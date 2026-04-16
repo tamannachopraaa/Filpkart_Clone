@@ -20,7 +20,7 @@ export default function Home() {
         setFilteredProducts(res.data);
         
         // Extract unique categories
-        const uniqueCategories = ['All', ...new Set(res.data.map((p: any) => p.category))];
+        const uniqueCategories: string[] = ['All', ...new Set(res.data.map((p: any) => p.category) as string[])];
         setCategories(uniqueCategories);
       })
       .catch((err: any) => console.log("Error fetching products:", err));
