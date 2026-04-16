@@ -6,6 +6,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.json({ message: 'Flipkart Clone Backend Running ✅', status: 'active' });
+});
+
 // API route to get all products (For the Listing Page)
 app.get('/api/products', async (req, res) => {
   try {
