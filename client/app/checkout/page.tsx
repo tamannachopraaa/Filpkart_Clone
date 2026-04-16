@@ -167,11 +167,11 @@ export default function CheckoutPage() {
             className={`w-full border p-3 outline-none rounded transition ${
               errors.address ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-500'
             }`}
-            rows="5"
+            rows={5}
             placeholder="Enter your full shipping address (e.g., House No., Street, City, State, PIN Code)"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            maxLength="500"
+            maxLength={500}
           />
           <div className="flex justify-between mt-2">
             <p className="text-xs text-gray-500">This address will be used for delivery</p>
