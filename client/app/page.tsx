@@ -62,8 +62,8 @@ export default function Home() {
       <div className="bg-white sticky top-[56px] z-40 shadow-md border-b-2 border-[#f1f3f6]">
         <div className="max-w-[1200px] mx-auto overflow-x-auto hide-scrollbar">
           <div className="flex gap-0 px-4 min-w-min">
-            {categories.map(category => {
-              const getCategoryIcon = (cat) => {
+            {categories.map((category: string) => {
+              const getCategoryIcon = (cat: string) => {
                 switch(cat) {
                   case 'All':
                     return '🛍️';
@@ -122,7 +122,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filteredProducts.map(product => (
+            {filteredProducts.map((product: Product) => (
               <Link href={`/product/${product.id}`} key={product.id}>
                 <div className="bg-white flex flex-col h-[340px] hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-100 rounded-sm overflow-hidden group hover:-translate-y-1">
                   {/* Product Image Container */}
@@ -143,7 +143,7 @@ export default function Home() {
                         alt={product.name} 
                         className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
-                        onError={(e) => {
+                        onError={(e: any) => {
                           console.warn(`Failed to load image for ${product.name}:`, product.image_url);
                           e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23e5e7eb" width="100" height="100"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%239ca3af" font-size="12"%3ENo Image%3C/text%3E%3C/svg%3E';
                         }}
