@@ -1,10 +1,27 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-const CartContext = createContext();
+interface CartItem {
+  id: number;
+  name: string;
+  price: string | number;
+  quantity: number;
+  image_url?: string;
+  [key: string]: any;
+}
 
-export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+interface CartContextType {
+  cart: CartItem[];
+  addToCart: (product: CartItem) => void;
+  removeFromCart: (id: number) => void;
+  updateQuantity: (id: number, amount: number) => void;
+  clearCart: () => void;
+}
+
+const CartContext = createContext<CartContextType | undefined>(undefined);
+
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   // Load cart from localStorage on startup
   useEffect(() => {
@@ -17,7 +34,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('flipkart_cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product) => {
+  const addToCart = (product: CartItem) => {
     setCart((prev) => {
       const existing = prev.find(item => item.id === product.id);
       if (existing) {
@@ -30,11 +47,11 @@ export const CartProvider = ({ children }) => {
     alert("Added to Cart!");
   };
 
-  const removeFromCart = (id) => {
+  const removeFromCart = (id: number) => {
     setCart(prev => prev.filter(item => item.id !== id));
   };
 
-  const updateQuantity = (id, amount) => {
+  const updateQuantity = (id: number, amount: number) => {
     setCart(prev => prev.map(item => 
       item.id === id ? { ...item, quantity: Math.max(1, item.quantity + amount) } : item
     ));
@@ -51,4 +68,10 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-export const useCart = () => useContext(CartContext);
+export const useCart = (): CartContextType => {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error('useCart must be used within CartProvider');
+  }
+  return context;
+};

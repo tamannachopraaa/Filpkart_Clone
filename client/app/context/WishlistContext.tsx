@@ -1,10 +1,26 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-const WishlistContext = createContext();
+interface WishlistItem {
+  id: number;
+  name: string;
+  price: string | number;
+  image_url?: string;
+  [key: string]: any;
+}
 
-export const WishlistProvider = ({ children }) => {
-  const [wishlist, setWishlist] = useState([]);
+interface WishlistContextType {
+  wishlist: WishlistItem[];
+  addToWishlist: (product: WishlistItem) => void;
+  removeFromWishlist: (id: number) => void;
+  isInWishlist: (id: number) => boolean;
+  clearWishlist: () => void;
+}
+
+const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
+
+export const WishlistProvider = ({ children }: { children: ReactNode }) => {
+  const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
 
   // Load wishlist from localStorage on startup
   useEffect(() => {
@@ -17,7 +33,7 @@ export const WishlistProvider = ({ children }) => {
     localStorage.setItem('flipkart_wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
-  const addToWishlist = (product) => {
+  const addToWishlist = (product: WishlistItem) => {
     setWishlist((prev) => {
       const exists = prev.find(item => item.id === product.id);
       if (exists) {
@@ -27,11 +43,11 @@ export const WishlistProvider = ({ children }) => {
     });
   };
 
-  const removeFromWishlist = (id) => {
+  const removeFromWishlist = (id: number) => {
     setWishlist(prev => prev.filter(item => item.id !== id));
   };
 
-  const isInWishlist = (id) => {
+  const isInWishlist = (id: number) => {
     return wishlist.some(item => item.id === id);
   };
 
@@ -46,4 +62,10 @@ export const WishlistProvider = ({ children }) => {
   );
 };
 
-export const useWishlist = () => useContext(WishlistContext);
+export const useWishlist = (): WishlistContextType => {
+  const context = useContext(WishlistContext);
+  if (!context) {
+    throw new Error('useWishlist must be used within WishlistProvider');
+  }
+  return context;
+};
