@@ -13,13 +13,13 @@ export default function CheckoutPage() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const router = useRouter();
   
   const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: Record<string, string> = {};
 
     // Email validation
     if (!email.trim()) {
