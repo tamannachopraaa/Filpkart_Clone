@@ -9,7 +9,7 @@ interface Order {
   email: string;
   phone: string;
   address: string;
-  total_amount: number;;
+  total_amount: number;
   created_at: string;
   items?: Array<{id: number; product_id: number; quantity: number; price: number}>;
   [key: string]: any;
