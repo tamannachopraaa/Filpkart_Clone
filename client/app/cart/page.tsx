@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity } = useCart();
-  const subtotal = cart.reduce((acc, item) => acc + (parseFloat(item.price) * item.quantity), 0);
+  const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const savings = cart.reduce((acc, item) => acc + (Math.round(item.price * 0.25) * item.quantity), 0);
 
   return (
@@ -57,7 +57,7 @@ export default function CartPage() {
                       </div>
                     </div>
                     <div className="text-right font-bold text-lg">
-                      ₹{(parseFloat(item.price) * item.quantity).toFixed(2)}
+                      ₹{(item.price * item.quantity).toFixed(2)}
                     </div>
                   </div>
                 ))}

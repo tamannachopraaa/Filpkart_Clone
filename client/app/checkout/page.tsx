@@ -16,7 +16,7 @@ export default function CheckoutPage() {
   const [errors, setErrors] = useState({});
   const router = useRouter();
   
-  const subtotal = cart.reduce((acc, item) => acc + (parseFloat(item.price) * item.quantity), 0);
+  const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
   const validateForm = () => {
     const newErrors = {};
@@ -184,7 +184,7 @@ export default function CheckoutPage() {
                   </span>
                   <span className="text-sm text-gray-500">(x{item.quantity})</span>
                 </div>
-                <span className="font-semibold whitespace-nowrap ml-2">₹{(parseFloat(item.price) * item.quantity).toFixed(2)}</span>
+                <span className="font-semibold whitespace-nowrap ml-2">₹{(item.price * item.quantity).toFixed(2)}</span>
               </div>
             ))}
             <div className="flex justify-between text-gray-600 py-2">

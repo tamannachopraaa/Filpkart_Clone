@@ -83,7 +83,7 @@ export default function OrderHistoryPage() {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-green-700">₹{parseFloat(order.total_amount).toFixed(2)}</p>
+                      <p className="text-lg font-bold text-green-700">₹{order.total_amount.toFixed(2)}</p>
                       <p className="text-green-600 text-sm font-semibold">Confirmed</p>
                     </div>
                   </div>
