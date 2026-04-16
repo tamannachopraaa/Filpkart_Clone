@@ -1,17 +1,9 @@
 "use client";
 import { useState } from 'react';
-import { useWishlist, WishlistContextType } from '@/app/context/WishlistContext';
+import { useWishlist, WishlistContextType, WishlistItem } from '@/app/context/WishlistContext';
 import { useCart } from '@/app/context/CartContext';
 import Navbar from '@/app/components/Navbar';
 import Link from 'next/link';
-
-interface WishlistItem {
-  id: number;
-  name: string;
-  price: number;
-  image_url?: string;
-  [key: string]: any;
-}
 
 export default function WishlistPage() {
   const { wishlist, removeFromWishlist } = useWishlist();

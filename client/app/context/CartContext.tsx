@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-interface CartItem {
+export interface CartItem {
   id: number;
   name: string;
   price: number;
@@ -10,7 +10,7 @@ interface CartItem {
   [key: string]: any;
 }
 
-interface CartContextType {
+export interface CartContextType {
   cart: CartItem[];
   addToCart: (product: CartItem) => void;
   removeFromCart: (id: number) => void;

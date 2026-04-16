@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-interface WishlistItem {
+export interface WishlistItem {
   id: number;
   name: string;
   price: number;
@@ -9,7 +9,7 @@ interface WishlistItem {
   [key: string]: any;
 }
 
-interface WishlistContextType {
+export interface WishlistContextType {
   wishlist: WishlistItem[];
   addToWishlist: (product: WishlistItem) => void;
   removeFromWishlist: (id: number) => void;
