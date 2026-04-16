@@ -4,9 +4,18 @@ import axios from 'axios';
 import Link from 'next/link';
 import Navbar from './components/Navbar';
 
+interface Product {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  image_url: string;
+  [key: string]: any;
+}
+
 export default function Home() {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [categories, setCategories] = useState(['All']);
@@ -20,7 +29,7 @@ export default function Home() {
         setFilteredProducts(res.data);
         
         // Extract unique categories
-        const uniqueCategories: string[] = ['All', ...new Set(res.data.map((p: any) => p.category) as string[])];
+        const uniqueCategories: string[] = ['All', ...new Set(res.data.map((p: Product) => p.category) as string[])];
         setCategories(uniqueCategories);
       })
       .catch((err: any) => console.log("Error fetching products:", err));
@@ -28,16 +37,16 @@ export default function Home() {
 
   // Handle search and category filter
   useEffect(() => {
-    let filtered = products;
+    let filtered: Product[] = products;
 
     // Apply category filter
     if (selectedCategory !== 'All') {
-      filtered = filtered.filter(p => p.category === selectedCategory);
+      filtered = filtered.filter((p: Product) => p.category === selectedCategory);
     }
 
     // Apply search filter
     if (searchTerm.trim()) {
-      filtered = filtered.filter(p => 
+      filtered = filtered.filter((p: Product) => 
         p.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
