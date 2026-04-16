@@ -6,12 +6,10 @@ import Navbar from '@/app/components/Navbar';
 
 interface Order {
   id: number;
-  email: string;
-  phone: string;
-  address: string;
-  total_amount: number;
+  total_amount: number | string;
+  shipping_address: string;
   created_at: string;
-  items?: Array<{id: number; product_id: number; quantity: number; price: number}>;
+  items?: Array<{id: number; product_id: number; quantity: number; price: number; product_name?: string; product_image?: string}>;
   [key: string]: any;
 }
 
@@ -83,7 +81,7 @@ export default function OrderHistoryPage() {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-green-700">₹{order.total_amount.toFixed(2)}</p>
+                      <p className="text-lg font-bold text-green-700">₹{typeof order.total_amount === 'string' ? parseFloat(order.total_amount).toFixed(2) : order.total_amount.toFixed(2)}</p>
                       <p className="text-green-600 text-sm font-semibold">Confirmed</p>
                     </div>
                   </div>
