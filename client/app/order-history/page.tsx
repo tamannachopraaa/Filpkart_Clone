@@ -27,7 +27,7 @@ export default function OrderHistoryPage() {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
         const response = await axios.get(`${apiUrl}/api/orders`);
         setOrders(response.data);
-      } catch (err) {
+      } catch (err: unknown) {
         console.error('Error fetching orders:', err);
         setError('Failed to load order history');
       } finally {

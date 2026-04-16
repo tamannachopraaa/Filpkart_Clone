@@ -88,9 +88,17 @@ export default function CheckoutPage() {
       } else {
         setErrors({ submit: response.data.error || "Order failed. Please try again." });
       }
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
-      const errorMessage = err.response?.data?.error || err.message || "Order failed. Please try again.";
+      let errorMessage = "Order failed. Please try again.";
+      
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (typeof err === 'object' && err !== null && 'response' in err) {
+        const axiosError = err as any;
+        errorMessage = axiosError.response?.data?.error || axiosError.message || errorMessage;
+      }
+      
       setErrors({ submit: errorMessage });
     } finally {
       setLoading(false);
