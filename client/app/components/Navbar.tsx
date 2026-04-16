@@ -3,7 +3,12 @@ import Link from 'next/link';
 import { useCart } from '@/app/context/CartContext';
 import { useWishlist } from '@/app/context/WishlistContext';
 
-export default function Navbar({ searchValue = '', onSearchChange = null }) {
+interface NavbarProps {
+  searchValue?: string;
+  onSearchChange?: (value: string) => void;
+}
+
+export default function Navbar({ searchValue = '', onSearchChange }: NavbarProps) {
   const { cart } = useCart();
   const { wishlist } = useWishlist();
 
