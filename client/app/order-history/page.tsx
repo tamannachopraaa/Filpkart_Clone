@@ -4,10 +4,21 @@ import axios from 'axios';
 import Link from 'next/link';
 import Navbar from '@/app/components/Navbar';
 
+interface Order {
+  id: number;
+  email: string;
+  phone: string;
+  address: string;
+  total_amount: number;;
+  created_at: string;
+  items?: Array<{id: number; product_id: number; quantity: number; price: number}>;
+  [key: string]: any;
+}
+
 export default function OrderHistoryPage() {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Fetch all orders from backend (in production, would fetch only user's orders)

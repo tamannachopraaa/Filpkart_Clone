@@ -6,11 +6,22 @@ import Navbar from '@/app/components/Navbar';
 import { useCart } from '@/app/context/CartContext';
 import { useWishlist } from '@/app/context/WishlistContext';
 
-export default function ProductDetail({ params }) {
+interface Product {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  image_url: string;
+  images?: string[];
+  description?: string;
+  [key: string]: any;
+}
+
+export default function ProductDetail({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const id = resolvedParams.id;
   
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { addToCart } = useCart();

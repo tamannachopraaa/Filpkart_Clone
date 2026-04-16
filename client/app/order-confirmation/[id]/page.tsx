@@ -3,7 +3,7 @@ import { use, useState, useEffect } from 'react';
 import Navbar from '@/app/components/Navbar';
 import Link from 'next/link';
 
-export default function OrderConfirmation({ params }) {
+export default function OrderConfirmation({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const orderId = resolvedParams.id;
   const [email, setEmail] = useState('');

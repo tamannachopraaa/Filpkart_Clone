@@ -1,16 +1,24 @@
 "use client";
 import { useState } from 'react';
-import { useWishlist } from '@/app/context/WishlistContext';
+import { useWishlist, WishlistContextType } from '@/app/context/WishlistContext';
 import { useCart } from '@/app/context/CartContext';
 import Navbar from '@/app/components/Navbar';
 import Link from 'next/link';
 
+interface WishlistItem {
+  id: number;
+  name: string;
+  price: number;
+  image_url?: string;
+  [key: string]: any;
+}
+
 export default function WishlistPage() {
   const { wishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
-  const [feedback, setFeedback] = useState({});
+  const [feedback, setFeedback] = useState<Record<number, boolean>>({});
 
-  const handleMoveToCart = (product) => {
+  const handleMoveToCart = (product: WishlistItem) => {
     addToCart(product);
     removeFromWishlist(product.id);
     setFeedback({ ...feedback, [product.id]: true });
